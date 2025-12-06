@@ -4,4 +4,4 @@ trading:
   buy_portion: 7
   fee_rate: 0.25
   welfare: true
-  start_date: '2025-01-01' # 백테스트 시작일
+  start_date: '2025-12-07' # 백테스트 시작일
