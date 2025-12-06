@@ -26,17 +26,23 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run morning task (00:30 KST - Order calculation)
+      - name: Run morning task with retry (00:30 KST)
+        uses: nick-invision/retry@v2
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
           ACCOUNT_CODE: ${{ secrets.ACCOUNT_CODE }}
-        run: |
-          echo "Running morning task at 00:30 KST"
-          python morning_task.py dry-run
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: |
+            echo "Morning task attempt $RETRY_ATTEMPT of 3"
+            python morning_task.py dry-run
 
       - name: Upload logs
+        if: always() # 실패해도 로그 업로드
         uses: actions/upload-artifact@v4
         with:
           name: trading-logs-morning-${{ github.run_number }}
@@ -59,17 +65,23 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run evening task (10:00 KST - Price update)
+      - name: Run evening task with retry (10:00 KST)
+        uses: nick-invision/retry@v2
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
           ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
           ACCOUNT_CODE: ${{ secrets.ACCOUNT_CODE }}
-        run: |
-          echo "Running evening task at 10:00 KST"
-          python evening_task.py
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: |
+            echo "Evening task attempt $RETRY_ATTEMPT of 3"
+            python evening_task.py
 
       - name: Upload logs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: trading-logs-evening-${{ github.run_number }}
