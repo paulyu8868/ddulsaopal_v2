@@ -1,0 +1,75 @@
+# .github/workflows/daily_trading.yml
+name: Daily Trading Bot
+
+on:
+  schedule:
+    # 한국시간 00:30 (UTC 15:30 전날)
+    - cron: '30 15 * * *'
+    # 한국시간 22:00 (UTC 13:00)
+    - cron: '0 1 * * *'
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  morning-task:
+    if: github.event.schedule == '30 15 * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run morning task
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
+          ACCOUNT_CODE: ${{ secrets.ACCOUNT_CODE }}
+        run: |
+          python morning_task.py dry-run
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: trading-logs
+          path: logs/
+
+  evening-task:
+    if: github.event.schedule == '0 1 * * *'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run evening task
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
+          ACCOUNT_CODE: ${{ secrets.ACCOUNT_CODE }}
+        run: |
+          python evening_task.py
+
+      - name: Commit and push DB
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Trading Bot"
+          git add data/trading.db
+          git diff --staged --quiet || git commit -m "Update price data $(date)"
+          git push
