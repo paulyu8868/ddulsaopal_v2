@@ -50,7 +50,7 @@ jobs:
           if-no-files-found: warn
 
   evening-task:
-    if: github.event.schedule == '0 1 * * *'
+    if: github.event.schedule == '0 1 * * *' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
