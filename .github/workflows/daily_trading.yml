@@ -41,12 +41,20 @@ jobs:
             echo "Morning task attempt $RETRY_ATTEMPT of 3"
             python morning_task.py dry-run
 
+      - name: Commit and push logs
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Trading Bot"
+          git add logs/ data/
+          git diff --staged --quiet || git commit -m "📊 Morning task logs $(date +'%Y-%m-%d')"
+          git push
+
       - name: Upload logs
-        if: always() # 실패해도 로그 업로드
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: trading-logs-morning-${{ github.run_number }}
-          path: logs/
+          name: logs-morning-dry-run-${{ github.run_number }}
+          path: logs/dry-run/
           if-no-files-found: warn
 
   evening-task:
@@ -78,20 +86,20 @@ jobs:
           retry_wait_seconds: 30
           command: |
             echo "Evening task attempt $RETRY_ATTEMPT of 3"
-            python evening_task.py
+            python evening_task.py dry-run
+
+      - name: Commit and push DB and logs
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Trading Bot"
+          git add data/trading.db logs/
+          git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
+          git push
 
       - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: trading-logs-evening-${{ github.run_number }}
-          path: logs/
+          name: logs-evening-dry-run-${{ github.run_number }}
+          path: logs/dry-run/
           if-no-files-found: warn
-
-      - name: Commit and push DB
-        run: |
-          git config --global user.email "bot@github.com"
-          git config --global user.name "Trading Bot"
-          git add data/trading.db
-          git diff --staged --quiet || git commit -m "Update price data $(date)"
-          git push
