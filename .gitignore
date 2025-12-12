@@ -1,6 +1,4 @@
 .env
 __pycache__/
 *.pyc
-logs/*.log
-data/buy_records.pkl
 data/kis_token.pkl
