@@ -45,3 +45,12 @@
 2025-12-12 02:50:22,611 - INFO - Updating price for 2025-12-11
 2025-12-12 02:50:23,524 - INFO - Loaded 1 days of price data for SOXL
 2025-12-12 02:50:23,528 - INFO - Price updated: 2025-12-11 - Close: $48.79
+2025-12-12 02:53:46,144 - INFO - Access token issued successfully (expires: 2025-12-13 01:53:46.144097)
+2025-12-12 02:53:46,145 - INFO - Token saved to file
+2025-12-12 02:53:46,145 - INFO - ============================================================
+2025-12-12 02:53:46,145 - INFO - EVENING TASK START
+2025-12-12 02:53:46,145 - INFO - 실행시간 Time: 2025-12-12 02:53:46
+2025-12-12 02:53:46,146 - INFO - ============================================================
+2025-12-12 02:53:46,427 - INFO - Updating price for 2025-12-11
+2025-12-12 02:53:47,291 - INFO - Loaded 1 days of price data for SOXL
+2025-12-12 02:53:47,296 - INFO - Price updated: 2025-12-11 - Close: $48.79
