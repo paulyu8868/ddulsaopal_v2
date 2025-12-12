@@ -9,6 +9,11 @@ on:
     - cron: '0 1 * * *'
   workflow_dispatch: # 수동 실행 가능
 
+# 동시 실행 방지 - 한 번에 하나의 워크플로우만 실행
+concurrency:
+  group: trading-bot
+  cancel-in-progress: false
+
 jobs:
   morning-task:
     if: github.event.schedule == '30 15 * * *' || github.event_name == 'workflow_dispatch'
@@ -16,6 +21,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Pull latest changes
         run: |
@@ -51,7 +58,16 @@ jobs:
           git config --global user.name "Trading Bot"
           git add logs/ data/
           git diff --staged --quiet || git commit -m "📊 Morning task logs $(date +'%Y-%m-%d')"
-          git push || (git pull --rebase origin main && git push)
+          
+          # Push with retry on conflict
+          for i in 1 2 3; do
+            git push && break
+            echo "Push failed, attempt $i. Pulling and retrying..."
+            git fetch origin main
+            git reset --soft origin/main
+            git add logs/ data/
+            git diff --staged --quiet || git commit -m "📊 Morning task logs $(date +'%Y-%m-%d')"
+          done
 
       - name: Upload logs
         if: always()
@@ -67,6 +83,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Pull latest changes
         run: |
@@ -102,7 +120,16 @@ jobs:
           git config --global user.name "Trading Bot"
           git add data/trading.db logs/
           git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
-          git push || (git pull --rebase origin main && git push)
+          
+          # Push with retry on conflict
+          for i in 1 2 3; do
+            git push && break
+            echo "Push failed, attempt $i. Pulling and retrying..."
+            git fetch origin main
+            git reset --soft origin/main
+            git add data/trading.db logs/
+            git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
+          done
 
       - name: Upload logs
         if: always()
