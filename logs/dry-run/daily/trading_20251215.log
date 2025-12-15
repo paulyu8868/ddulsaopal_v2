@@ -5,3 +5,18 @@
 2025-12-15 03:00:08,318 - INFO - 실행시간 Time: 2025-12-15 03:00:08
 2025-12-15 03:00:08,318 - INFO - ============================================================
 2025-12-15 03:00:08,534 - INFO - No trading on 2025-12-14
+2025-12-15 15:48:04,061 - INFO - Access token issued successfully (expires: 2025-12-16 14:48:04.060988)
+2025-12-15 15:48:04,062 - INFO - Token saved to file
+2025-12-15 15:48:04,062 - INFO - ============================================================
+2025-12-15 15:48:04,062 - INFO - MORNING TASK START
+2025-12-15 15:48:04,062 - INFO - Time: 2025-12-15 15:48:04
+2025-12-15 15:48:04,062 - INFO - Mode: DRY-RUN
+2025-12-15 15:48:04,063 - INFO - ============================================================
+2025-12-15 15:48:04,350 - INFO - US Market Open on 2025-12-15
+2025-12-15 15:48:04,355 - ERROR - Error in morning task: object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/home/runner/work/ddulsaopal_v2/ddulsaopal_v2/daily_run.py", line 349, in run_morning_task
+    buyPrice, buyQty, funds, holdings, sellOrders = self.calculate_orders()
+  File "/home/runner/work/ddulsaopal_v2/ddulsaopal_v2/daily_run.py", line 160, in calculate_orders
+    df_length = len(df) - len(get_data(ticker=self.symbol, start=self.start_date, end=end_date))
+TypeError: object of type 'NoneType' has no len()
