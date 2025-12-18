@@ -20,3 +20,9 @@
   SELL (LOC): 34 shares @ $41.39
   SELL (LOC): 34 shares @ $40.69
 
+[2025-12-18] 00:45:11 KST - Mode: DRY-RUN
+  BUY (LOC): 41 shares @ $36.01
+  SELL (LOC): 34 shares @ $41.39
+  SELL (LOC): 34 shares @ $40.69
+  SELL (LOC): 35 shares @ $36.19
+
