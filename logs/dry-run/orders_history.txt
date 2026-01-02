@@ -58,3 +58,10 @@
   SELL (LOC): 32 shares @ $44.04
   SELL (LOC): 33 shares @ $43.89
 
+[2026-01-02] 00:43:11 KST - Mode: DRY-RUN
+  BUY (LOC): 35 shares @ $42.03
+  SELL (LOC): 32 shares @ $44.43
+  SELL (LOC): 32 shares @ $44.04
+  SELL (LOC): 33 shares @ $43.89
+  SELL (LOC): 33 shares @ $42.24
+
