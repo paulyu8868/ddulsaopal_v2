@@ -99,3 +99,6 @@
 [2026-01-16] 00:45:54 KST - Mode: DRY-RUN
   BUY (LOC): 26 shares @ $58.08
 
+[2026-01-20] 00:54:34 KST - Mode: DRY-RUN
+  BUY (LOC): 25 shares @ $60.75
+
