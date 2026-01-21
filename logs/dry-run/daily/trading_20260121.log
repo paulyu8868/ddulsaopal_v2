@@ -7,3 +7,13 @@
 2026-01-21 03:02:11,154 - INFO - Updating price for 2026-01-20
 2026-01-21 03:02:12,183 - INFO - Loaded 1 days of price data for SOXL
 2026-01-21 03:02:12,187 - INFO - Price updated: 2026-01-20 - Close: $57.94
+2026-01-21 15:56:16,591 - INFO - Access token issued successfully (expires: 2026-01-22 14:56:16.591676)
+2026-01-21 15:56:16,593 - INFO - Token saved to file
+2026-01-21 15:56:16,593 - INFO - ============================================================
+2026-01-21 15:56:16,593 - INFO - MORNING TASK START
+2026-01-21 15:56:16,593 - INFO - Time: 2026-01-21 15:56:16
+2026-01-21 15:56:16,593 - INFO - Mode: DRY-RUN
+2026-01-21 15:56:16,593 - INFO - ============================================================
+2026-01-21 15:56:16,872 - INFO - US Market Open on 2026-01-21
+2026-01-21 15:56:16,879 - INFO - Order Calculation - Holdings: 25, Funds: $9365.60
+2026-01-21 15:56:16,880 - INFO - DRY-RUN mode - Orders not submitted
