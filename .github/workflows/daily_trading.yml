@@ -50,7 +50,7 @@ jobs:
           retry_wait_seconds: 30
           command: |
             echo "Morning task attempt $RETRY_ATTEMPT of 3"
-            python morning_task.py dry-run
+            python morning_task.py live # live로 수정
 
       - name: Commit and push logs
         run: |
