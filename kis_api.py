@@ -321,15 +321,15 @@ class KISApi:
         
         # 실거래 주문 TR_ID
         if order_type == 'LOC_BUY':
-            tr_id = "JTTT1002U"
+            tr_id = "TTTT1002U"
             ord_dvsn = "34"  # LOC 매수
             buy_sell = "BUY"
         elif order_type == 'LOC_SELL':
-            tr_id = "JTTT1006U"
+            tr_id = "TTTT1006U"
             ord_dvsn = "34"  # LOC 매도
             buy_sell = "SELL"
         elif order_type == 'MOC_SELL':
-            tr_id = "JTTT1006U"
+            tr_id = "TTTT1006U"
             ord_dvsn = "33"  # MOC 매도
             buy_sell = "SELL"
         else:
