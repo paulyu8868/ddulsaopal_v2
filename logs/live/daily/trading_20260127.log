@@ -27,17 +27,3 @@
 2026-01-27 16:40:09,478 - INFO - Submitting LOC sell: 6 @ $61.00
 2026-01-27 16:40:10,566 - ERROR - Order request failed: {"rt_cd":"1","msg_cd":"EGW00356","msg1":"타겟 서버가 올바르지 않습니다. API 문서를 확인하세요 (타겟 서버 : 입력한 TR ID의 제일 첫 문자)"}
 2026-01-27 16:40:10,567 - INFO - Order Results: 0/2 successful
-2026-01-27 16:48:09,796 - INFO - Access token issued successfully (expires: 2026-01-28 15:48:09.796473)
-2026-01-27 16:48:09,797 - INFO - Token saved to file
-2026-01-27 16:48:09,798 - INFO - ============================================================
-2026-01-27 16:48:09,798 - INFO - MORNING TASK START
-2026-01-27 16:48:09,798 - INFO - Time: 2026-01-27 16:48:09
-2026-01-27 16:48:09,798 - INFO - Mode: LIVE
-2026-01-27 16:48:09,798 - INFO - ============================================================
-2026-01-27 16:48:10,074 - INFO - US Market Open on 2026-01-27
-2026-01-27 16:48:10,081 - INFO - Order Calculation - Holdings: 6, Funds: $2634.89
-2026-01-27 16:48:10,081 - INFO - Submitting LOC buy: 7 @ $60.70
-2026-01-27 16:48:11,550 - INFO - Order placed successfully: LOC_BUY 7 SOXL
-2026-01-27 16:48:11,551 - INFO - Submitting LOC sell: 6 @ $61.00
-2026-01-27 16:48:12,944 - ERROR - Order failed: 주문 가격을 확인 하시기 바랍니다. 1$이상 소수점 2자리까지만 가능 합니다.
-2026-01-27 16:48:12,945 - INFO - Order Results: 1/2 successful
