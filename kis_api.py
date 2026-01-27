@@ -341,7 +341,7 @@ class KISApi:
             "OVRS_EXCG_CD": "AMEX",
             "PDNO": symbol,
             "ORD_QTY": str(quantity),
-            "OVRS_ORD_UNPR": str(price) if price > 0 else "0",
+            "OVRS_ORD_UNPR": f"{price:.2f}" if price > 0 else "0",
             "ORD_DVSN": ord_dvsn,
             "ORD_SVR_DVSN_CD": "0"
         }
