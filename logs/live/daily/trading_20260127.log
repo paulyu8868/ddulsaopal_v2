@@ -12,3 +12,17 @@
 2026-01-27 15:50:27,614 - INFO - Submitting LOC sell: 6 @ $61.00
 2026-01-27 15:50:28,324 - ERROR - Order request failed: {"rt_cd":"1","msg_cd":"EGW00131","msg1":"유효하지 않은 hashkey입니다."}
 2026-01-27 15:50:28,325 - INFO - Order Results: 0/2 successful
+2026-01-27 16:26:57,595 - INFO - Access token issued successfully (expires: 2026-01-28 15:26:57.595608)
+2026-01-27 16:26:57,597 - INFO - Token saved to file
+2026-01-27 16:26:57,597 - INFO - ============================================================
+2026-01-27 16:26:57,597 - INFO - MORNING TASK START
+2026-01-27 16:26:57,597 - INFO - Time: 2026-01-27 16:26:57
+2026-01-27 16:26:57,597 - INFO - Mode: LIVE
+2026-01-27 16:26:57,597 - INFO - ============================================================
+2026-01-27 16:26:57,876 - INFO - US Market Open on 2026-01-27
+2026-01-27 16:26:57,882 - INFO - Order Calculation - Holdings: 6, Funds: $2634.89
+2026-01-27 16:26:57,883 - INFO - Submitting LOC buy: 7 @ $60.70
+2026-01-27 16:26:59,122 - ERROR - Order request failed: {"rt_cd":"1","msg_cd":"EGW00356","msg1":"타겟 서버가 올바르지 않습니다. API 문서를 확인하세요 (타겟 서버 : 입력한 TR ID의 제일 첫 문자)"}
+2026-01-27 16:26:59,124 - INFO - Submitting LOC sell: 6 @ $61.00
+2026-01-27 16:27:00,345 - ERROR - Order request failed: {"rt_cd":"1","msg_cd":"EGW00356","msg1":"타겟 서버가 올바르지 않습니다. API 문서를 확인하세요 (타겟 서버 : 입력한 TR ID의 제일 첫 문자)"}
+2026-01-27 16:27:00,346 - INFO - Order Results: 0/2 successful
