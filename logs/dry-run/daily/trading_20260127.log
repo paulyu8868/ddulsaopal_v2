@@ -17,3 +17,12 @@
 2026-01-27 16:28:00,769 - INFO - Updating price for 2026-01-27
 2026-01-27 16:28:01,952 - INFO - Loaded 1 days of price data for SOXL
 2026-01-27 16:28:01,956 - INFO - Price updated: 2026-01-27 - Close: $65.76
+2026-01-27 16:39:05,675 - INFO - Access token issued successfully (expires: 2026-01-28 15:39:05.675649)
+2026-01-27 16:39:05,676 - INFO - Token saved to file
+2026-01-27 16:39:05,676 - INFO - ============================================================
+2026-01-27 16:39:05,677 - INFO - EVENING TASK START
+2026-01-27 16:39:05,677 - INFO - 실행시간 Time: 2026-01-27 16:39:05
+2026-01-27 16:39:05,677 - INFO - ============================================================
+2026-01-27 16:39:05,944 - INFO - Updating price for 2026-01-27
+2026-01-27 16:39:06,935 - INFO - Loaded 1 days of price data for SOXL
+2026-01-27 16:39:06,939 - INFO - Price updated: 2026-01-27 - Close: $65.84
