@@ -1,0 +1,14 @@
+2026-01-27 15:50:26,541 - INFO - Access token issued successfully (expires: 2026-01-28 14:50:26.541844)
+2026-01-27 15:50:26,543 - INFO - Token saved to file
+2026-01-27 15:50:26,543 - INFO - ============================================================
+2026-01-27 15:50:26,543 - INFO - MORNING TASK START
+2026-01-27 15:50:26,543 - INFO - Time: 2026-01-27 15:50:26
+2026-01-27 15:50:26,543 - INFO - Mode: LIVE
+2026-01-27 15:50:26,544 - INFO - ============================================================
+2026-01-27 15:50:26,824 - INFO - US Market Open on 2026-01-27
+2026-01-27 15:50:26,831 - INFO - Order Calculation - Holdings: 6, Funds: $2634.89
+2026-01-27 15:50:26,832 - INFO - Submitting LOC buy: 7 @ $60.70
+2026-01-27 15:50:27,613 - ERROR - Order request failed: {"rt_cd":"1","msg_cd":"EGW00131","msg1":"유효하지 않은 hashkey입니다."}
+2026-01-27 15:50:27,614 - INFO - Submitting LOC sell: 6 @ $61.00
+2026-01-27 15:50:28,324 - ERROR - Order request failed: {"rt_cd":"1","msg_cd":"EGW00131","msg1":"유효하지 않은 hashkey입니다."}
+2026-01-27 15:50:28,325 - INFO - Order Results: 0/2 successful
