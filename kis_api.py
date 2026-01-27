@@ -342,7 +342,6 @@ class KISApi:
             "PDNO": symbol,
             "ORD_QTY": str(quantity),
             "OVRS_ORD_UNPR": str(price) if price > 0 else "0",
-            "SLL_BUY_DVSN_CD": buy_sell[0],  # B or S
             "ORD_DVSN": ord_dvsn,
             "ORD_SVR_DVSN_CD": "0"
         }
