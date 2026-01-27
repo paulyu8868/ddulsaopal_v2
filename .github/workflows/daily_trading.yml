@@ -73,8 +73,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: logs-morning-dry-run-${{ github.run_number }}
-          path: logs/dry-run/
+          name: logs-morning-live-${{ github.run_number }}
+          path: logs/live/
           if-no-files-found: warn
 
   evening-task:
@@ -135,6 +135,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: logs-evening-dry-run-${{ github.run_number }}
-          path: logs/dry-run/
+          name: logs-evening-live-${{ github.run_number }}
+          path: logs/live/
           if-no-files-found: warn
