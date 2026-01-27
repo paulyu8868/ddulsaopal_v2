@@ -42,3 +42,18 @@
 2026-01-27 16:58:09,198 - INFO - Submitting LOC sell: 6 @ $61.00
 2026-01-27 16:58:10,541 - ERROR - Order failed: 주문 가격을 확인 하시기 바랍니다. 1$이상 소수점 2자리까지만 가능 합니다.
 2026-01-27 16:58:10,543 - INFO - Order Results: 1/2 successful
+2026-01-27 17:06:16,417 - WARNING - Token rate limit. Waiting 60 seconds... (attempt 1/3)
+2026-01-27 17:07:17,209 - INFO - Access token issued successfully (expires: 2026-01-28 16:07:17.209507)
+2026-01-27 17:07:17,210 - INFO - Token saved to file
+2026-01-27 17:07:17,211 - INFO - ============================================================
+2026-01-27 17:07:17,211 - INFO - MORNING TASK START
+2026-01-27 17:07:17,211 - INFO - Time: 2026-01-27 17:07:17
+2026-01-27 17:07:17,211 - INFO - Mode: LIVE
+2026-01-27 17:07:17,211 - INFO - ============================================================
+2026-01-27 17:07:17,488 - INFO - US Market Open on 2026-01-27
+2026-01-27 17:07:17,495 - INFO - Order Calculation - Holdings: 6, Funds: $2634.89
+2026-01-27 17:07:17,496 - INFO - Submitting LOC buy: 7 @ $60.70
+2026-01-27 17:07:18,852 - INFO - Order placed successfully: LOC_BUY 7 SOXL
+2026-01-27 17:07:18,853 - INFO - Submitting LOC sell: 6 @ $61.00
+2026-01-27 17:07:20,094 - INFO - Order placed successfully: LOC_SELL 6 SOXL
+2026-01-27 17:07:20,095 - INFO - Order Results: 2/2 successful
