@@ -1,6 +1,5 @@
 import requests
 import json
-import hashlib
 import os
 import pickle
 from datetime import datetime, timedelta
@@ -140,11 +139,27 @@ class KISApi:
             self._get_access_token()
             self._save_token()
     
-    def _make_hash(self, data: Dict) -> str:
-        """해시값 생성 (실거래 주문용)"""
-        data_str = json.dumps(data, ensure_ascii=False).replace(' ', '')
-        hash_obj = hashlib.sha256(data_str.encode())
-        return hash_obj.hexdigest()
+    def _get_hashkey(self, data: Dict) -> str:
+        """한투 API hashkey 발급"""
+        path = "/uapi/hashkey"
+        url = self.base_url + path
+        
+        headers = {
+            "content-type": "application/json",
+            "appkey": self.app_key,
+            "appsecret": self.app_secret
+        }
+        
+        res = requests.post(url, headers=headers, data=json.dumps(data))
+        
+        if res.status_code == 200:
+            result = res.json()
+            if 'HASH' in result:
+                return result['HASH']
+            else:
+                raise Exception(f"Hashkey not in response: {result}")
+        else:
+            raise Exception(f"Failed to get hashkey: {res.text}")
     
     def get_overseas_price_daily(self, symbol: str, start_date: str, end_date: str) -> List[Dict]:
         """해외 주식 일봉 조회"""
@@ -332,13 +347,16 @@ class KISApi:
             "ORD_SVR_DVSN_CD": "0"
         }
         
+        # 한투 API에서 hashkey 발급
+        hashkey = self._get_hashkey(body)
+        
         headers = {
             "content-type": "application/json",
             "authorization": f"Bearer {self.access_token}",
             "appkey": self.app_key,
             "appsecret": self.app_secret,
             "tr_id": tr_id,
-            "hashkey": self._make_hash(body)  # 실거래는 항상 해시 필요
+            "hashkey": hashkey
         }
         
         res = requests.post(url, headers=headers, data=json.dumps(body))
