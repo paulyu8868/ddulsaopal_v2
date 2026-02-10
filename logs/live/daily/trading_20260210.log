@@ -1,0 +1,12 @@
+2026-02-10 16:37:36,275 - INFO - Access token issued successfully (expires: 2026-02-11 15:37:36.275842)
+2026-02-10 16:37:36,277 - INFO - Token saved to file
+2026-02-10 16:37:36,277 - INFO - ============================================================
+2026-02-10 16:37:36,277 - INFO - MORNING TASK START
+2026-02-10 16:37:36,277 - INFO - Time: 2026-02-10 16:37:36
+2026-02-10 16:37:36,277 - INFO - Mode: LIVE
+2026-02-10 16:37:36,277 - INFO - ============================================================
+2026-02-10 16:37:36,558 - INFO - US Market Open on 2026-02-10
+2026-02-10 16:37:36,565 - INFO - Order Calculation - Holdings: 0, Funds: $3101.59
+2026-02-10 16:37:36,566 - INFO - Submitting LOC buy: 6 @ $64.03
+2026-02-10 16:37:37,527 - INFO - Order placed successfully: LOC_BUY 6 SOXL
+2026-02-10 16:37:37,528 - INFO - Order Results: 1/1 successful
