@@ -203,3 +203,9 @@
   SELL (LOC): 7 shares @ $63.07
   SELL (LOC): 8 shares @ $51.40
 
+[2026-03-24] 01:35:25 KST - Mode: LIVE
+  BUY (LOC): 9 shares @ $53.03
+  SELL (LOC): 6 shares @ $65.67
+  SELL (LOC): 7 shares @ $63.08
+  SELL (LOC): 7 shares @ $63.07
+
