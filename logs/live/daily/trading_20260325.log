@@ -1,0 +1,18 @@
+2026-03-25 16:41:11,680 - INFO - Access token issued successfully (expires: 2026-03-26 15:41:11.680079)
+2026-03-25 16:41:11,681 - INFO - Token saved to file
+2026-03-25 16:41:11,681 - INFO - ============================================================
+2026-03-25 16:41:11,681 - INFO - MORNING TASK START
+2026-03-25 16:41:11,681 - INFO - Time: 2026-03-25 16:41:11
+2026-03-25 16:41:11,682 - INFO - Mode: LIVE
+2026-03-25 16:41:11,682 - INFO - ============================================================
+2026-03-25 16:41:11,963 - INFO - US Market Open on 2026-03-25
+2026-03-25 16:41:11,971 - INFO - Order Calculation - Holdings: 20, Funds: $1982.95
+2026-03-25 16:41:11,972 - INFO - Submitting LOC buy: 9 @ $54.96
+2026-03-25 16:41:13,350 - ERROR - Order failed: 주문가능금액을 초과 했습니다
+2026-03-25 16:41:13,351 - INFO - Submitting LOC sell: 6 @ $65.67
+2026-03-25 16:41:14,719 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-03-25 16:41:14,721 - INFO - Submitting LOC sell: 7 @ $63.08
+2026-03-25 16:41:16,140 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-03-25 16:41:16,141 - INFO - Submitting LOC sell: 7 @ $63.07
+2026-03-25 16:41:17,561 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-03-25 16:41:17,562 - INFO - Order Results: 0/4 successful
