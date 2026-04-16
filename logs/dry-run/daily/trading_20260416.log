@@ -7,3 +7,13 @@
 2026-04-16 04:16:46,622 - INFO - Updating price for 2026-04-16
 2026-04-16 04:16:48,489 - INFO - Loaded 0 days of price data for SOXL
 2026-04-16 04:16:48,490 - WARNING - No price data for 2026-04-16
+2026-04-16 16:53:53,458 - INFO - Access token issued successfully (expires: 2026-04-17 15:53:53.458341)
+2026-04-16 16:53:53,459 - INFO - Token saved to file
+2026-04-16 16:53:53,459 - INFO - ============================================================
+2026-04-16 16:53:53,459 - INFO - MORNING TASK START
+2026-04-16 16:53:53,459 - INFO - Time: 2026-04-16 16:53:53
+2026-04-16 16:53:53,460 - INFO - Mode: DRY-RUN
+2026-04-16 16:53:53,460 - INFO - ============================================================
+2026-04-16 16:53:53,645 - INFO - US Market Open on 2026-04-16
+2026-04-16 16:53:53,650 - INFO - Order Calculation - Holdings: 0, Funds: $16597.00
+2026-04-16 16:53:53,651 - INFO - DRY-RUN mode - Orders not submitted
