@@ -7,18 +7,12 @@
 2026-04-30 04:34:49,458 - INFO - Updating price for 2026-04-30
 2026-04-30 04:34:50,346 - INFO - Loaded 0 days of price data for SOXL
 2026-04-30 04:34:50,347 - WARNING - No price data for 2026-04-30
-2026-04-30 05:35:26,133 - INFO - Access token issued successfully (expires: 2026-05-01 04:35:26.133876)
-2026-04-30 05:35:26,135 - INFO - Token saved to file
-2026-04-30 05:35:26,135 - INFO - ============================================================
-2026-04-30 05:35:26,135 - INFO - MORNING TASK START
-2026-04-30 05:35:26,135 - INFO - Time: 2026-04-30 05:35:26
-2026-04-30 05:35:26,135 - INFO - Mode: LIVE
-2026-04-30 05:35:26,135 - INFO - ============================================================
-2026-04-30 05:35:26,415 - INFO - US Market Open on 2026-04-30
-2026-04-30 05:35:26,420 - ERROR - Error in morning task: object of type 'NoneType' has no len()
-Traceback (most recent call last):
-  File "/home/runner/work/ddulsaopal_v2/ddulsaopal_v2/daily_run.py", line 349, in run_morning_task
-    buyPrice, buyQty, funds, holdings, sellOrders = self.calculate_orders()
-  File "/home/runner/work/ddulsaopal_v2/ddulsaopal_v2/daily_run.py", line 160, in calculate_orders
-    df_length = len(df) - len(get_data(ticker=self.symbol, start=self.start_date, end=end_date))
-TypeError: object of type 'NoneType' has no len()
+2026-04-30 05:35:27,551 - WARNING - Token rate limit. Waiting 60 seconds... (attempt 1/3)
+2026-04-30 05:36:28,207 - INFO - Access token issued successfully (expires: 2026-05-01 04:36:28.207132)
+2026-04-30 05:36:28,208 - INFO - Token saved to file
+2026-04-30 05:36:28,208 - INFO - ============================================================
+2026-04-30 05:36:28,208 - INFO - EVENING TASK START
+2026-04-30 05:36:28,208 - INFO - 실행시간 Time: 2026-04-30 05:36:28
+2026-04-30 05:36:28,208 - INFO - ============================================================
+2026-04-30 05:36:28,480 - INFO - Target date for price update: 2026-04-29
+2026-04-30 05:36:28,480 - INFO - DB already has data up to 2026-04-29, skip
