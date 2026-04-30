@@ -1,0 +1,38 @@
+name: Backfill Prices (Manual)
+
+on:
+  workflow_dispatch:  # 수동 실행 전용
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run backfill
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
+          ACCOUNT_CODE: ${{ secrets.ACCOUNT_CODE }}
+        run: python backfill_prices.py
+
+      - name: Commit and push DB
+        run: |
+          git config user.email "bot@github.com"
+          git config user.name "Backfill Bot"
+          git add data/trading.db
+          if git diff --staged --quiet; then
+            echo "변경사항 없음"
+          else
+            git commit -m "Backfill missing prices 2026-04-09 to 2026-04-29"
+            git pull --rebase || true
+            git push
+          fi
