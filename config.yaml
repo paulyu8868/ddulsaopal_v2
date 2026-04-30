@@ -1,7 +1,7 @@
 trading:
   symbol: 'SOXL'
-  initial_funds: 16597
+  initial_funds: 16000
   buy_portion: 7
   fee_rate: 0.25
   welfare: true
-  start_date: '2026-04-06' # 시작일
+  start_date: '2026-04-30' # 시작일
