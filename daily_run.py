@@ -379,7 +379,12 @@ class DailyTrader:
             self.log_morning_history(is_trading_day=True, error_msg=error_msg)
     
     def run_evening_task(self):
-        """10:00 실행 - 종가 업데이트"""
+        """10:00 실행 - 종가 업데이트
+        
+        KST 13시경에 도는 evening-task가 미국 ET 자정을 넘긴 시점이면
+        "오늘"을 요청하게 되어 KIS에 데이터가 없음.
+        → 항상 "최근 마감된 거래일"을 명시적으로 계산해서 요청.
+        """
         logging.info("="*60)
         logging.info("EVENING TASK START")
         logging.info(f"실행시간 Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -388,18 +393,41 @@ class DailyTrader:
         # 통합 로그 헤더 확인/생성
         self.write_history_header()
         
-        # 미국 기준 오늘 (장 마감 후)
-        us_date = self.get_us_date()
-        is_trading = self.is_trading_day(us_date)
-        
-        if not is_trading:
-            logging.info(f"No trading on {us_date}")
+        # 미국 ET 기준 어제부터 시작해서 가장 최근 거래일 찾기 (최대 7일 거슬러)
+        target_date = self.get_us_date() - timedelta(days=1)
+        for _ in range(7):
+            if self.is_trading_day(target_date):
+                break
+            target_date -= timedelta(days=1)
+        else:
+            # 7일 거슬러도 거래일 없음 (사실상 불가능)
+            logging.error("최근 7일 내 거래일 없음")
             self.log_evening_history(is_trading_day=False)
+            return
+        
+        logging.info(f"Target date for price update: {target_date}")
+        
+        # DB에 이미 있으면 skip (백필 후 일관성 + 불필요한 push 방지)
+        conn = sqlite3.connect('data/trading.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT MAX(date) FROM prices WHERE symbol = ?",
+            (self.symbol,)
+        )
+        latest_in_db = cursor.fetchone()[0]
+        conn.close()
+        
+        if latest_in_db and latest_in_db >= target_date.strftime('%Y-%m-%d'):
+            logging.info(f"DB already has data up to {latest_in_db}, skip")
+            self.log_evening_history(
+                is_trading_day=True,
+                error_msg=f"이미 최신 데이터 보유 (DB 최신: {latest_in_db})"
+            )
             return
         
         # 종가 업데이트
         try:
-            close_price = self.update_price_data(us_date)
+            close_price = self.update_price_data(target_date)
             if close_price:
                 self.log_evening_history(is_trading_day=True, close_price=close_price)
             else:
