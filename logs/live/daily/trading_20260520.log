@@ -8,3 +8,19 @@
 2026-05-20 05:08:31,476 - INFO - Updating price for 2026-05-19
 2026-05-20 05:08:32,354 - INFO - Loaded 1 days of price data for SOXL
 2026-05-20 05:08:32,359 - INFO - Price updated: 2026-05-19 - Close: $151.89
+2026-05-20 18:02:56,159 - INFO - Access token issued successfully (expires: 2026-05-21 17:02:56.159088)
+2026-05-20 18:02:56,160 - INFO - Token saved to file
+2026-05-20 18:02:56,160 - INFO - ============================================================
+2026-05-20 18:02:56,160 - INFO - MORNING TASK START
+2026-05-20 18:02:56,160 - INFO - Time: 2026-05-20 18:02:56
+2026-05-20 18:02:56,161 - INFO - Mode: LIVE
+2026-05-20 18:02:56,161 - INFO - ============================================================
+2026-05-20 18:02:56,448 - INFO - US Market Open on 2026-05-20
+2026-05-20 18:02:56,456 - INFO - Order Calculation - Holdings: 26, Funds: $12632.11
+2026-05-20 18:02:56,456 - INFO - Submitting LOC buy: 16 @ $151.89
+2026-05-20 18:02:57,760 - ERROR - Order failed: 주문가능금액을 초과 했습니다
+2026-05-20 18:02:57,761 - INFO - Submitting LOC sell: 12 @ $165.00
+2026-05-20 18:02:59,021 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-05-20 18:02:59,022 - INFO - Submitting LOC sell: 14 @ $152.51
+2026-05-20 18:03:00,324 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-05-20 18:03:00,325 - INFO - Order Results: 0/3 successful
