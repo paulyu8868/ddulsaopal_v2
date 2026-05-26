@@ -6,3 +6,15 @@
 2026-05-26 05:06:24,546 - INFO - ============================================================
 2026-05-26 05:06:24,835 - INFO - Target date for price update: 2026-05-22
 2026-05-26 05:06:24,835 - INFO - DB already has data up to 2026-05-22, skip
+2026-05-26 18:08:11,493 - INFO - Access token issued successfully (expires: 2026-05-27 17:08:11.493187)
+2026-05-26 18:08:11,494 - INFO - Token saved to file
+2026-05-26 18:08:11,494 - INFO - ============================================================
+2026-05-26 18:08:11,494 - INFO - MORNING TASK START
+2026-05-26 18:08:11,495 - INFO - Time: 2026-05-26 18:08:11
+2026-05-26 18:08:11,495 - INFO - Mode: LIVE
+2026-05-26 18:08:11,495 - INFO - ============================================================
+2026-05-26 18:08:11,745 - INFO - US Market Open on 2026-05-26
+2026-05-26 18:08:11,752 - INFO - Order Calculation - Holdings: 0, Funds: $26500.00
+2026-05-26 18:08:11,753 - INFO - Submitting LOC buy: 19 @ $190.56
+2026-05-26 18:08:12,999 - INFO - Order placed successfully: LOC_BUY 19 SOXL
+2026-05-26 18:08:13,000 - INFO - Order Results: 1/1 successful
