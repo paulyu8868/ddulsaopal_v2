@@ -4,7 +4,7 @@ name: Daily Trading Bot
 on:
   schedule:
     # 한국시간 00:30 (UTC 15:30 전날) - 주문 계산 및 제출
-    - cron: '30 15 * * *'
+    - cron: '31 14 * * *'
     # 한국시간 10:00 (UTC 01:00) - 종가 업데이트
     - cron: '0 1 * * *'
   workflow_dispatch: # 수동 실행 가능
