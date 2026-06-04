@@ -3,7 +3,7 @@ name: Daily Trading Bot
 
 on:
   schedule:
-    # 한국시간 00:30 (UTC 15:30 전날) - 주문 계산 및 제출
+    # UTC 14:31 (장 시작 직후, 서머타임 무관하게 개장 이후 보장) - 주문 계산 및 제출
     - cron: '31 14 * * *'
     # 한국시간 10:00 (UTC 01:00) - 종가 업데이트
     - cron: '0 1 * * *'
@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   morning-task:
-    if: github.event.schedule == '30 15 * * *' || github.event_name == 'workflow_dispatch'
+    if: github.event.schedule == '31 14 * * *' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run morning task with retry (00:30 KST)
+      - name: Run morning task with retry (장 시작 직후)
         uses: nick-invision/retry@v2
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
@@ -58,7 +58,7 @@ jobs:
           git config --global user.name "Trading Bot"
           git add logs/ data/
           git diff --staged --quiet || git commit -m "📊 Morning task logs $(date +'%Y-%m-%d')"
-          
+
           # Push with retry on conflict
           for i in 1 2 3; do
             git push && break
@@ -120,7 +120,7 @@ jobs:
           git config --global user.name "Trading Bot"
           git add data/trading.db logs/
           git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
-          
+
           # Push with retry on conflict
           for i in 1 2 3; do
             git push && break
