@@ -6,3 +6,19 @@
 2026-06-08 05:55:38,767 - INFO - ============================================================
 2026-06-08 05:55:39,064 - INFO - Target date for price update: 2026-06-05
 2026-06-08 05:55:39,065 - INFO - DB already has data up to 2026-06-05, skip
+2026-06-08 17:33:57,059 - INFO - Access token issued successfully (expires: 2026-06-09 16:33:57.059766)
+2026-06-08 17:33:57,061 - INFO - Token saved to file
+2026-06-08 17:33:57,061 - INFO - ============================================================
+2026-06-08 17:33:57,061 - INFO - MORNING TASK START
+2026-06-08 17:33:57,061 - INFO - Time: 2026-06-08 17:33:57
+2026-06-08 17:33:57,061 - INFO - Mode: LIVE
+2026-06-08 17:33:57,061 - INFO - ============================================================
+2026-06-08 17:33:57,304 - INFO - US Market Open on 2026-06-08
+2026-06-08 17:33:57,311 - INFO - Order Calculation - Holdings: 27, Funds: $20628.09
+2026-06-08 17:33:57,311 - INFO - Submitting LOC buy: 22 @ $182.54
+2026-06-08 17:33:58,644 - INFO - Order placed successfully: LOC_BUY 22 SOXL
+2026-06-08 17:33:58,645 - INFO - Submitting LOC sell: 13 @ $264.01
+2026-06-08 17:33:59,913 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-06-08 17:33:59,915 - INFO - Submitting LOC sell: 14 @ $183.45
+2026-06-08 17:34:01,409 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-06-08 17:34:01,410 - INFO - Order Results: 1/3 successful
