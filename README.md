@@ -7,6 +7,10 @@ SOXL(반도체 3배 레버리지 ETF)에 "떨어지면 사고 오르면 판다" 
 
 ![Trading Chart](assets/trading_chart.png)
 
+### 🔗 [인터랙티브 차트 보기](https://paulyu8868.github.io/ddulsaopal_v2/)
+기간 슬라이더로 드래그해서 확대·축소하거나, 차트에 커서를 올리면 날짜별 정확한 가격/수익률을 볼 수 있습니다.
+(정적 페이지라 시작일을 입력하면 그 자리에서 재계산되는 건 아니고, `config.yaml`의 `chart.start_date` 기준으로 매일 다시 생성됩니다.)
+
 ## 📈 매매법: 떨사오팔
 
 이름 그대로 "떨어지면 사고, 오르면 판다" — 변동성이 큰 SOXL의 단기 평균회귀(mean reversion) 성향을 이용하는 분할매수 전략입니다.
