@@ -114,11 +114,19 @@ jobs:
             echo "Evening task attempt $RETRY_ATTEMPT of 3"
             python evening_task.py live # 2026.04.30 수정
 
-      - name: Commit and push DB and logs
+      - name: Install Korean font (README chart)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-nanum
+
+      - name: Generate README chart
+        run: python generate_chart.py
+
+      - name: Commit and push DB, logs, and chart
         run: |
           git config --global user.email "bot@github.com"
           git config --global user.name "Trading Bot"
-          git add data/trading.db logs/
+          git add data/trading.db logs/ assets/
           git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
 
           # Push with retry on conflict
@@ -127,7 +135,7 @@ jobs:
             echo "Push failed, attempt $i. Pulling and retrying..."
             git fetch origin main
             git reset --soft origin/main
-            git add data/trading.db logs/
+            git add data/trading.db logs/ assets/
             git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
           done
 

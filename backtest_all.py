@@ -1,7 +1,6 @@
 import pandas as pd
 from datetime import datetime, timedelta
 from utils import get_data, round_half_up_to_two,  calculate_mdd
-from IPython.display import display
 
 # 떨사오팔 매매 로직
 
