@@ -142,11 +142,13 @@ def build_chart(symbol, start_date, df_year, df_res, return_rate, mdd, df_trades
 def main():
     config = load_config()
     symbol = config['trading']['symbol']
-    start_date = config['trading']['start_date']
     initial_funds = config['trading']['initial_funds']
     buy_portion = config['trading']['buy_portion']
     fee = config['trading']['fee_rate']
     welfare = config['trading'].get('welfare', True)
+
+    # 차트 표시용 시작일 - chart.start_date가 있으면 그걸 쓰고, 없으면 실거래 start_date를 따라감
+    chart_start_date = (config.get('chart') or {}).get('start_date') or config['trading']['start_date']
 
     end_date = get_latest_db_date(symbol)
     year_start = f'{end_date.year}-01-01'
@@ -157,7 +159,7 @@ def main():
         return
 
     return_rate, df_res, final_value, df_trades, mdd, effective_start_date = run_campaign_simulation(
-        symbol, start_date, end_date, initial_funds, buy_portion, fee, welfare
+        symbol, chart_start_date, end_date, initial_funds, buy_portion, fee, welfare
     )
 
     build_chart(symbol, effective_start_date, df_year, df_res, return_rate, mdd, df_trades,

@@ -5,3 +5,8 @@ trading:
   fee_rate: 0.25
   welfare: true
   start_date: '2026-06-18' # 시작일
+
+chart:
+  # README 차트에 표시할 수익률 기준 시작일. 비워두면(null) trading.start_date를 그대로 따라감.
+  # 실거래 로직과는 무관 - 차트 표시 범위만 바꿈.
+  start_date: null
