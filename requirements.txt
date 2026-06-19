@@ -6,3 +6,4 @@ requests==2.31.0
 pandas-market-calendars==4.3.2
 pytz==2024.1
 matplotlib==3.9.2
+plotly==5.24.1

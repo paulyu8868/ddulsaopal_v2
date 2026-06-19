@@ -122,11 +122,14 @@ jobs:
       - name: Generate README chart
         run: python generate_chart.py
 
+      - name: Generate interactive chart (GitHub Pages)
+        run: python generate_interactive_chart.py
+
       - name: Commit and push DB, logs, and chart
         run: |
           git config --global user.email "bot@github.com"
           git config --global user.name "Trading Bot"
-          git add data/trading.db logs/ assets/
+          git add data/trading.db logs/ assets/ docs/
           git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
 
           # Push with retry on conflict
@@ -135,7 +138,7 @@ jobs:
             echo "Push failed, attempt $i. Pulling and retrying..."
             git fetch origin main
             git reset --soft origin/main
-            git add data/trading.db logs/ assets/
+            git add data/trading.db logs/ assets/ docs/
             git diff --staged --quiet || git commit -m "📈 Evening update $(date +'%Y-%m-%d')"
           done
 
