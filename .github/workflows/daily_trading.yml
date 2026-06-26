@@ -7,6 +7,8 @@ on:
     - cron: '31 14 * * *'
     # 한국시간 10:00 (UTC 01:00) - 종가 업데이트
     - cron: '0 1 * * *'
+    # UTC 03:00 (evening-task 2시간 후) - 종가 업데이트 실패 시 최근 7일 백필 안전망
+    - cron: '0 3 * * *'
   workflow_dispatch: # 수동 실행 가능
 
 # 동시 실행 방지 - 한 번에 하나의 워크플로우만 실행
@@ -149,3 +151,57 @@ jobs:
           name: logs-evening-live-${{ github.run_number }}
           path: logs/live/
           if-no-files-found: warn
+
+  backfill-task:
+    if: github.event.schedule == '0 3 * * *' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull latest changes
+        run: |
+          git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run 7-day backfill with retry (evening-task 안전망)
+        uses: nick-invision/retry@v2
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          ACCOUNT_NUMBER: ${{ secrets.ACCOUNT_NUMBER }}
+          ACCOUNT_CODE: ${{ secrets.ACCOUNT_CODE }}
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: |
+            echo "Backfill attempt $RETRY_ATTEMPT of 3"
+            python backfill_prices.py
+
+      - name: Commit and push DB
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Trading Bot"
+          git add data/trading.db
+          git diff --staged --quiet || git commit -m "🔄 Backfill recent prices $(date +'%Y-%m-%d')"
+
+          # Push with retry on conflict
+          for i in 1 2 3; do
+            git push && break
+            echo "Push failed, attempt $i. Pulling and retrying..."
+            git fetch origin main
+            git reset --soft origin/main
+            git add data/trading.db
+            git diff --staged --quiet || git commit -m "🔄 Backfill recent prices $(date +'%Y-%m-%d')"
+          done
