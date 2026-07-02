@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+REQUEST_TIMEOUT = (5, 10)  # (connect, read) 초 - KIS 서버 무응답 시 빠르게 실패 판정
+
 class KISApi:
     """한국투자증권 Open API 래퍼 - 실거래 전용"""
     
@@ -89,11 +91,11 @@ class KISApi:
             "appsecret": self.app_secret
         }
         
-        # 재시도 로직
-        max_retries = 3
+        # 재시도 로직 (네트워크 무응답 시 짧게 실패 판정 후 지수 백오프로 재시도)
+        max_retries = 5
         for attempt in range(max_retries):
             try:
-                res = requests.post(url, headers=headers, data=json.dumps(body))
+                res = requests.post(url, headers=headers, data=json.dumps(body), timeout=REQUEST_TIMEOUT)
                 
                 if res.status_code == 200:
                     data = res.json()
@@ -126,7 +128,9 @@ class KISApi:
             except requests.exceptions.RequestException as e:
                 logging.error(f"Network error: {e}")
                 if attempt < max_retries - 1:
-                    time.sleep(5)
+                    backoff = min(5 * (2 ** attempt), 60)
+                    logging.warning(f"Retrying in {backoff} seconds... (attempt {attempt+1}/{max_retries})")
+                    time.sleep(backoff)
                     continue
                 raise
         
@@ -150,8 +154,8 @@ class KISApi:
             "appsecret": self.app_secret
         }
         
-        res = requests.post(url, headers=headers, data=json.dumps(data))
-        
+        res = requests.post(url, headers=headers, data=json.dumps(data), timeout=REQUEST_TIMEOUT)
+
         if res.status_code == 200:
             result = res.json()
             if 'HASH' in result:
@@ -189,11 +193,11 @@ class KISApi:
                 "MODP": "0"  # 수정주가 반영
             }
             
-            res = requests.get(url, headers=headers, params=params)
-            
+            res = requests.get(url, headers=headers, params=params, timeout=REQUEST_TIMEOUT)
+
             if res.status_code == 200:
                 data = res.json()
-                
+
                 if data['rt_cd'] != '0':
                     logging.error(f"API Error: {data.get('msg1', 'Unknown error')}")
                     break
@@ -261,8 +265,8 @@ class KISApi:
             "SYMB": symbol
         }
         
-        res = requests.get(url, headers=headers, params=params)
-        
+        res = requests.get(url, headers=headers, params=params, timeout=REQUEST_TIMEOUT)
+
         if res.status_code == 200:
             data = res.json()
             if data['rt_cd'] == '0':
@@ -298,8 +302,8 @@ class KISApi:
             "CTX_AREA_NK200": ""
         }
         
-        res = requests.get(url, headers=headers, params=params)
-        
+        res = requests.get(url, headers=headers, params=params, timeout=REQUEST_TIMEOUT)
+
         if res.status_code == 200:
             data = res.json()
             if data['rt_cd'] == '0':
@@ -358,8 +362,8 @@ class KISApi:
             "hashkey": hashkey
         }
         
-        res = requests.post(url, headers=headers, data=json.dumps(body))
-        
+        res = requests.post(url, headers=headers, data=json.dumps(body), timeout=REQUEST_TIMEOUT)
+
         if res.status_code == 200:
             data = res.json()
             if data['rt_cd'] == '0':
@@ -399,8 +403,8 @@ class KISApi:
             "CTX_AREA_NK200": ""
         }
         
-        res = requests.get(url, headers=headers, params=params)
-        
+        res = requests.get(url, headers=headers, params=params, timeout=REQUEST_TIMEOUT)
+
         if res.status_code == 200:
             data = res.json()
             if data['rt_cd'] == '0':
