@@ -1,0 +1,56 @@
+# Lambda 컨테이너 이미지 빌드·배포
+# 래퍼/의존성이 바뀔 때만 실행되면 됨 — 매매 코드는 Lambda가 런타임에 clone하므로 재배포 불필요
+name: Deploy Lambda Image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'aws/**'
+      - 'requirements.txt'
+      - '.github/workflows/deploy_lambda.yml'
+  workflow_dispatch:
+
+permissions:
+  id-token: write   # OIDC로 AWS 역할 인수
+  contents: read
+
+concurrency:
+  group: deploy-lambda
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: ap-northeast-2
+  ECR_REPOSITORY: ddulsa-trading-bot
+  LAMBDA_FUNCTION: ddulsa-trading-bot
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::905418322252:role/ddulsa-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image
+        run: |
+          IMAGE="${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}"
+          docker build --platform linux/amd64 -f aws/Dockerfile -t "$IMAGE:latest" -t "$IMAGE:${{ github.sha }}" .
+          docker push "$IMAGE:latest"
+          docker push "$IMAGE:${{ github.sha }}"
+
+      - name: Update Lambda function
+        run: |
+          IMAGE="${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}"
+          aws lambda update-function-code \
+            --function-name "${{ env.LAMBDA_FUNCTION }}" \
+            --image-uri "$IMAGE:${{ github.sha }}"
+          aws lambda wait function-updated-v2 --function-name "${{ env.LAMBDA_FUNCTION }}"
