@@ -47,10 +47,14 @@ jobs:
           docker push "$IMAGE:latest"
           docker push "$IMAGE:${{ github.sha }}"
 
-      - name: Update Lambda function
+      - name: Update Lambda function (있을 때만 — 최초 생성은 인프라 셋업에서 수행)
         run: |
           IMAGE="${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}"
-          aws lambda update-function-code \
-            --function-name "${{ env.LAMBDA_FUNCTION }}" \
-            --image-uri "$IMAGE:${{ github.sha }}"
-          aws lambda wait function-updated-v2 --function-name "${{ env.LAMBDA_FUNCTION }}"
+          if aws lambda get-function --function-name "${{ env.LAMBDA_FUNCTION }}" >/dev/null 2>&1; then
+            aws lambda update-function-code \
+              --function-name "${{ env.LAMBDA_FUNCTION }}" \
+              --image-uri "$IMAGE:${{ github.sha }}"
+            aws lambda wait function-updated-v2 --function-name "${{ env.LAMBDA_FUNCTION }}"
+          else
+            echo "Lambda function not created yet - image pushed, skipping update"
+          fi
