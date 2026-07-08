@@ -8,3 +8,13 @@
 2026-07-08 08:51:10,550 - INFO - US Market Open on 2026-07-08
 2026-07-08 08:51:10,572 - INFO - Order Calculation - Holdings: 32, Funds: $20070.87
 2026-07-08 08:51:10,581 - INFO - DRY-RUN mode - Orders not submitted
+2026-07-08 13:31:32,336 - INFO - Access token issued successfully (expires: 2026-07-09 12:31:32.336676)
+2026-07-08 13:31:32,337 - INFO - Token saved to file
+2026-07-08 13:31:32,338 - INFO - ============================================================
+2026-07-08 13:31:32,338 - INFO - MORNING TASK START
+2026-07-08 13:31:32,338 - INFO - Time: 2026-07-08 13:31:32
+2026-07-08 13:31:32,338 - INFO - Mode: DRY-RUN
+2026-07-08 13:31:32,338 - INFO - ============================================================
+2026-07-08 13:31:33,059 - INFO - US Market Open on 2026-07-08
+2026-07-08 13:31:33,081 - INFO - Order Calculation - Holdings: 32, Funds: $20070.87
+2026-07-08 13:31:33,081 - INFO - DRY-RUN mode - Orders not submitted
