@@ -5,8 +5,11 @@ FROM public.ecr.aws/lambda/python:3.10
 RUN yum install -y git && yum clean all
 
 COPY requirements.txt .
+# matplotlib/plotly는 차트 스크립트(이관 제외) 전용 — Lambda 이미지에서 제외
+# (pillow가 AL2 glibc 2.26용 휠을 제공하지 않아 소스 빌드로 실패하는 문제도 함께 회피)
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt boto3
+    grep -vE "^(matplotlib|plotly)" requirements.txt > /tmp/requirements-lambda.txt && \
+    pip install --no-cache-dir -r /tmp/requirements-lambda.txt boto3
 
 COPY aws/handler.py ${LAMBDA_TASK_ROOT}/handler.py
 
