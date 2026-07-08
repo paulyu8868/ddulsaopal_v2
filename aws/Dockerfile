@@ -5,7 +5,8 @@ FROM public.ecr.aws/lambda/python:3.10
 RUN yum install -y git && yum clean all
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt boto3
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt boto3
 
 COPY aws/handler.py ${LAMBDA_TASK_ROOT}/handler.py
 
