@@ -21,11 +21,11 @@ EventBridge Scheduler (정시 cron 3개)
 
 ## 스케줄 (EventBridge)
 
-| 이름 | cron | 기존 대비 |
+| 이름 | cron | 비고 |
 |---|---|---|
-| ddulsa-morning | `31 9 ? * * *` America/New_York | UTC 14:31 절충 불필요 — 연중 개장 1분 후 정시 |
-| ddulsa-evening | `0 1 * * ? *` UTC | 동일 시각, 정시 보장 |
-| ddulsa-backfill | `0 3 * * ? *` UTC | 동일 시각, 정시 보장 |
+| ddulsa-morning | `31 9 * * ? *` America/New_York | 연중 개장 1분 후 정시 (서머타임 자동) |
+| ddulsa-evening | `30 0 * * ? *` America/New_York | ⚠️ 반드시 **ET 자정 이후** — evening의 `target = 미국오늘−1` 날짜 로직이 이 시간대에서만 정확 (2026-07-09 버그 수정) |
+| ddulsa-backfill | `30 2 * * ? *` America/New_York | evening 2시간 뒤 안전망 |
 
 payload 예: `{"task": "morning", "mode": "dry-run"}` — live 전환은 payload의 mode만 변경.
 
