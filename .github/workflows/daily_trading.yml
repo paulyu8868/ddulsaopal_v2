@@ -1,15 +1,10 @@
 # .github/workflows/daily_trading.yml
+# ⚠️ 스케줄 실행은 AWS EventBridge → Lambda(ddulsa-trading-bot, 서울 리전)로 이관됨 (aws/README.md 참조)
+# 이 워크플로우는 수동 백업 전용. workflow_dispatch 실행 시 세 잡이 모두 돌며 morning은 live 주문을 제출하므로 주의.
 name: Daily Trading Bot
 
 on:
-  schedule:
-    # UTC 14:31 (장 시작 직후, 서머타임 무관하게 개장 이후 보장) - 주문 계산 및 제출
-    - cron: '31 14 * * *'
-    # 한국시간 10:00 (UTC 01:00) - 종가 업데이트
-    - cron: '0 1 * * *'
-    # UTC 03:00 (evening-task 2시간 후) - 종가 업데이트 실패 시 최근 7일 백필 안전망
-    - cron: '0 3 * * *'
-  workflow_dispatch: # 수동 실행 가능
+  workflow_dispatch: # 수동 실행 전용
 
 # 동시 실행 방지 - 한 번에 하나의 워크플로우만 실행
 concurrency:
@@ -18,7 +13,7 @@ concurrency:
 
 jobs:
   morning-task:
-    if: github.event.schedule == '31 14 * * *' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -80,7 +75,7 @@ jobs:
           if-no-files-found: warn
 
   evening-task:
-    if: github.event.schedule == '0 1 * * *' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -153,7 +148,7 @@ jobs:
           if-no-files-found: warn
 
   backfill-task:
-    if: github.event.schedule == '0 3 * * *' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:

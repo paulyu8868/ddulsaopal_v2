@@ -1,0 +1,57 @@
+# 차트 갱신 — Lambda evening이 data/trading.db를 push하면 자동 실행
+# (기존에는 evening 잡 뒤에 붙어 있었으나, 스케줄이 Lambda로 이관되며 push 트리거로 분리)
+name: Update Charts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/trading.db'
+  workflow_dispatch:
+
+concurrency:
+  group: update-charts
+  cancel-in-progress: false
+
+jobs:
+  charts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Korean font (README chart)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-nanum
+
+      - name: Generate README chart
+        run: python generate_chart.py
+
+      - name: Generate interactive chart (GitHub Pages)
+        run: python generate_interactive_chart.py
+
+      - name: Commit and push charts
+        run: |
+          git config --global user.email "bot@github.com"
+          git config --global user.name "Chart Bot"
+          git add assets/ docs/
+          git diff --staged --quiet || git commit -m "📊 Update charts $(date +'%Y-%m-%d')"
+
+          for i in 1 2 3; do
+            git push && break
+            echo "Push failed, attempt $i. Pulling and retrying..."
+            git fetch origin main
+            git reset --soft origin/main
+            git add assets/ docs/
+            git diff --staged --quiet || git commit -m "📊 Update charts $(date +'%Y-%m-%d')"
+          done
