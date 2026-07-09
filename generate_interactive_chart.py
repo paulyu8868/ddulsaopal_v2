@@ -4,23 +4,24 @@
 v2 (2026-07): 시뮬레이션 재현이 아니라 **실제 live 주문·포트폴리오 기록** 기반.
 - 종가: data/trading.db
 - 주문: logs/live/orders_history.txt (실제 제출된 주문)
-- 보유주식·예수금: logs/live/trading_history_*.log 의 Morning Task 블록
+- 평가액·수익률: run_campaign_simulation(generate_chart.py)로 **현재 config 기준
+  start_date부터 매번 재계산** — trading_history 로그의 포트폴리오 스냅샷은 기록 당시
+  config가 섞여 있어 쓰지 않는다 (실거래 주문 계산과 동일한 재계산 경로라 장부와 일치)
 - 체결 판정(LOC 규칙): 매수 = 종가 <= 지정가, 매도 = 종가 >= 지정가, MOC = 항상 체결
   · 당일 종가가 아직 DB에 없으면 "체결 대기"
-- 수익률 = (보유주식 x 종가 + 예수금) / config initial_funds - 1  ← 봇 장부 기준
 
-config 변경 시 동작: start_date는 표시 구간 필터, initial_funds는 수익률 분모로만
-쓰인다. 과거 주문·체결 기록 자체는 로그 사실이므로 재계산되지 않는다.
+config 변경 시 동작: 평가액·수익률 곡선은 전체 재계산되고, 주문 마커는 실제 제출
+기록(로그 사실)이라 불변.
 
 분석·표시 전용 - 실거래 주문 로직에는 영향 없음.
 """
-import glob
 import re
 import sqlite3
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+from generate_chart import get_latest_db_date, run_campaign_simulation
 from utils import load_config
 
 BG_COLOR = '#0d1117'
@@ -33,7 +34,6 @@ C_PRICE = '#4FC3F7'
 C_RET = '#FFD54F'
 
 ORDERS_PATH = 'logs/live/orders_history.txt'
-HISTORY_GLOB = 'logs/live/trading_history_*.log'
 
 
 def load_prices(symbol, start_date):
@@ -82,27 +82,7 @@ def judge_fills(orders, close_map):
             o['fill_price'] = c if o['filled'] else None
 
 
-def parse_portfolio(start_date):
-    """trading_history 로그의 Morning Task 블록 -> {미국거래일: (보유주식, 예수금)}."""
-    port = {}
-    for path in sorted(glob.glob(HISTORY_GLOB)):
-        text = open(path, encoding='utf-8').read()
-        headers = list(re.finditer(r'📅 (\d{4}-\d{2}-\d{2}) \(.\) - (Morning|Evening) Task', text))
-        for i, m in enumerate(headers):
-            if m.group(2) != 'Morning':
-                continue
-            block = text[m.end(): headers[i + 1].start() if i + 1 < len(headers) else len(text)]
-            hm = re.search(r'보유 주식: ([\d,]+)주', block)
-            fm = re.search(r'남은 잔고: \$([\d,]+\.?\d*)', block)
-            if hm and fm and m.group(1) >= start_date:
-                port[m.group(1)] = (
-                    int(hm.group(1).replace(',', '')),
-                    float(fm.group(1).replace(',', '')),
-                )
-    return port
-
-
-def build_dashboard(symbol, start_date, initial_funds, output_path):
+def build_dashboard(symbol, start_date, initial_funds, config, output_path):
     dates, closes = load_prices(symbol, start_date)
     if not dates:
         print('가격 데이터 없음 - 대시보드 생성 중단')
@@ -111,18 +91,16 @@ def build_dashboard(symbol, start_date, initial_funds, output_path):
 
     orders = parse_orders(start_date)
     judge_fills(orders, close_map)
-    port = parse_portfolio(start_date)
 
-    eq_dates, equity, rets = [], [], []
-    for d in sorted(port):
-        c = close_map.get(d)
-        if c is None:
-            continue
-        h, f = port[d]
-        e = h * c + f
-        eq_dates.append(d)
-        equity.append(e)
-        rets.append((e / initial_funds - 1) * 100)
+    # 평가액·수익률: 현재 config로 start_date부터 재계산 (실거래와 동일한 계산 경로)
+    end_date = get_latest_db_date(symbol)
+    return_rate, df_res, final_value, df_trades, mdd, start_date = run_campaign_simulation(
+        symbol, start_date, end_date, initial_funds,
+        config['buy_portion'], config['fee_rate'], config.get('welfare', True),
+    )
+    eq_dates = [d.strftime('%Y-%m-%d') for d in df_res.index]
+    equity = df_res['총 평가액'].tolist()
+    rets = df_res['수익율(%)'].tolist()
 
     fig = make_subplots(
         rows=3, cols=1, shared_xaxes=True,
@@ -200,10 +178,10 @@ def build_dashboard(symbol, start_date, initial_funds, output_path):
     n_buy = sum(1 for lst in orders.values() for o in lst if o['side'] == 'BUY' and o['filled'] is True)
     n_sell = sum(1 for lst in orders.values() for o in lst if o['side'] == 'SELL' and o['filled'] is True)
     if equity:
-        last_h, last_f = port[eq_dates[-1]]
+        last = df_res.iloc[-1]
         stats = (f"평가금액 ${equity[-1]:,.0f} ({rets[-1]:+.2f}%)  |  "
-                 f"보유 {last_h}주 · 예수금 ${last_f:,.0f}  |  "
-                 f"체결 매수 {n_buy}회 · 매도 {n_sell}회")
+                 f"보유 {int(last['보유 주식 수'])}주 · 예수금 ${last['예수금']:,.0f}  |  "
+                 f"MDD {mdd:.1f}%  |  체결 매수 {n_buy}회 · 매도 {n_sell}회")
     else:
         stats = '포트폴리오 기록 없음'
     today_str = dates[-1]
@@ -250,7 +228,7 @@ def main():
     initial_funds = float(config['trading']['initial_funds'])
     start_date = (config.get('chart') or {}).get('start_date') or config['trading']['start_date']
 
-    build_dashboard(symbol, start_date, initial_funds, 'docs/index.html')
+    build_dashboard(symbol, start_date, initial_funds, config['trading'], 'docs/index.html')
     print('인터랙티브 대시보드 생성 완료: docs/index.html')
 
 
