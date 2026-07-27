@@ -6,3 +6,25 @@
 2026-07-27 04:30:29,113 - INFO - ============================================================
 2026-07-27 04:30:29,819 - INFO - Target date for price update: 2026-07-24
 2026-07-27 04:30:29,820 - INFO - DB already has data up to 2026-07-24, skip
+2026-07-27 13:31:31,607 - INFO - Access token issued successfully (expires: 2026-07-28 12:31:31.607792)
+2026-07-27 13:31:31,609 - INFO - Token saved to file
+2026-07-27 13:31:31,609 - INFO - ============================================================
+2026-07-27 13:31:31,609 - INFO - MORNING TASK START
+2026-07-27 13:31:31,609 - INFO - Time: 2026-07-27 13:31:31
+2026-07-27 13:31:31,609 - INFO - Mode: LIVE
+2026-07-27 13:31:31,609 - INFO - ============================================================
+2026-07-27 13:31:32,286 - INFO - US Market Open on 2026-07-27
+2026-07-27 13:31:32,297 - INFO - Order Calculation - Holdings: 106, Funds: $8960.03
+2026-07-27 13:31:32,306 - INFO - Submitting LOC buy: 32 @ $136.81
+2026-07-27 13:31:32,435 - ERROR - Order failed: 주문가능금액을 초과 했습니다
+2026-07-27 13:31:32,437 - INFO - Submitting LOC sell: 13 @ $218.64
+2026-07-27 13:31:32,543 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-27 13:31:32,545 - INFO - Submitting LOC sell: 20 @ $193.22
+2026-07-27 13:31:32,652 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-27 13:31:32,654 - INFO - Submitting LOC sell: 22 @ $166.38
+2026-07-27 13:31:32,768 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-27 13:31:32,769 - INFO - Submitting LOC sell: 25 @ $158.29
+2026-07-27 13:31:32,880 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-27 13:31:32,881 - INFO - Submitting LOC sell: 26 @ $137.49
+2026-07-27 13:31:32,988 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-27 13:31:32,989 - INFO - Order Results: 0/6 successful
