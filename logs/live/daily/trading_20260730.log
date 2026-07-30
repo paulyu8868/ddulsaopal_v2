@@ -8,3 +8,31 @@
 2026-07-30 04:30:29,415 - INFO - Updating price for 2026-07-29
 2026-07-30 04:30:29,470 - INFO - Loaded 1 days of price data for SOXL
 2026-07-30 04:30:29,473 - INFO - Price updated: 2026-07-29 - Close: $91.99
+2026-07-30 13:31:31,678 - INFO - Access token issued successfully (expires: 2026-07-31 12:31:31.678788)
+2026-07-30 13:31:31,680 - INFO - Token saved to file
+2026-07-30 13:31:31,680 - INFO - ============================================================
+2026-07-30 13:31:31,680 - INFO - MORNING TASK START
+2026-07-30 13:31:31,680 - INFO - Time: 2026-07-30 13:31:31
+2026-07-30 13:31:31,680 - INFO - Mode: LIVE
+2026-07-30 13:31:31,680 - INFO - ============================================================
+2026-07-30 13:31:32,371 - INFO - US Market Open on 2026-07-30
+2026-07-30 13:31:32,390 - INFO - Order Calculation - Holdings: 182, Funds: $140.33
+2026-07-30 13:31:32,392 - INFO - Submitting LOC buy: 1 @ $91.99
+2026-07-30 13:31:32,506 - ERROR - Order failed: 주문가능금액을 초과 했습니다
+2026-07-30 13:31:32,508 - INFO - Submitting LOC sell: 13 @ $218.64
+2026-07-30 13:31:32,607 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:32,609 - INFO - Submitting LOC sell: 20 @ $193.22
+2026-07-30 13:31:32,706 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:32,707 - INFO - Submitting LOC sell: 22 @ $166.38
+2026-07-30 13:31:32,812 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:32,813 - INFO - Submitting LOC sell: 25 @ $158.29
+2026-07-30 13:31:32,912 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:32,914 - INFO - Submitting LOC sell: 26 @ $137.49
+2026-07-30 13:31:33,019 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:33,020 - INFO - Submitting LOC sell: 32 @ $128.79
+2026-07-30 13:31:33,130 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:33,131 - INFO - Submitting LOC sell: 37 @ $110.09
+2026-07-30 13:31:33,232 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:33,234 - INFO - Submitting LOC sell: 7 @ $92.45
+2026-07-30 13:31:33,338 - ERROR - Order failed: 주문수량이 가능수량보다 큽니다
+2026-07-30 13:31:33,339 - INFO - Order Results: 0/9 successful
