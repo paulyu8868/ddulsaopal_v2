@@ -52,8 +52,8 @@ def infinite_buy_today(df, initial_funds, buy_portion, start_idx, simulation_per
 
             buy_records = new_buy_records
 
-        # 매수 로직
-        if price <= prev_price: # 전날 종가 LOC 매수
+        # 매수 로직 (시작일 당일은 기준일이므로 매수하지 않음 — 실제 매매는 다음 거래일부터)
+        if i > start_idx and price <= prev_price: # 전날 종가 LOC 매수
             if welfare: # 복리 적용
                 qty = int(one_buy_welfare / prev_price)
             else: # 단리 적용
