@@ -1,10 +1,10 @@
 trading:
   symbol: 'SOXL'
-  initial_funds: 25000
+  initial_funds: 20500
   buy_portion: 7
   fee_rate: 0.25
   welfare: true
-  start_date: '2026-06-18' # 시작일
+  start_date: '2026-07-31' # 시작일 (2026-08-03 캠페인 리셋 - 직전 거래일)
 
 chart:
   # README 차트에 표시할 수익률 기준 시작일. 비워두면(null) trading.start_date를 그대로 따라감.
