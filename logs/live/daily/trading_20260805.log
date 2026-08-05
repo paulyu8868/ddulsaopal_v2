@@ -8,3 +8,15 @@
 2026-08-05 04:30:29,092 - INFO - Updating price for 2026-08-04
 2026-08-05 04:30:29,146 - INFO - Loaded 1 days of price data for SOXL
 2026-08-05 04:30:29,148 - INFO - Price updated: 2026-08-04 - Close: $139.90
+2026-08-05 13:31:31,812 - INFO - Access token issued successfully (expires: 2026-08-06 12:31:31.812860)
+2026-08-05 13:31:31,814 - INFO - Token saved to file
+2026-08-05 13:31:31,814 - INFO - ============================================================
+2026-08-05 13:31:31,814 - INFO - MORNING TASK START
+2026-08-05 13:31:31,814 - INFO - Time: 2026-08-05 13:31:31
+2026-08-05 13:31:31,814 - INFO - Mode: LIVE
+2026-08-05 13:31:31,815 - INFO - ============================================================
+2026-08-05 13:31:32,537 - INFO - US Market Open on 2026-08-05
+2026-08-05 13:31:32,556 - INFO - Order Calculation - Holdings: 0, Funds: $20500.00
+2026-08-05 13:31:32,557 - INFO - Submitting LOC buy: 20 @ $139.90
+2026-08-05 13:31:32,710 - INFO - Order placed successfully: LOC_BUY 20 SOXL
+2026-08-05 13:31:32,712 - INFO - Order Results: 1/1 successful
