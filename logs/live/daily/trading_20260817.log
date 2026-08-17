@@ -6,3 +6,17 @@
 2026-08-17 04:30:28,939 - INFO - ============================================================
 2026-08-17 04:30:29,574 - INFO - Target date for price update: 2026-08-14
 2026-08-17 04:30:29,575 - INFO - DB already has data up to 2026-08-14, skip
+2026-08-17 13:31:37,108 - INFO - Access token issued successfully (expires: 2026-08-18 12:31:37.108018)
+2026-08-17 13:31:37,109 - INFO - Token saved to file
+2026-08-17 13:31:37,109 - INFO - ============================================================
+2026-08-17 13:31:37,109 - INFO - MORNING TASK START
+2026-08-17 13:31:37,110 - INFO - Time: 2026-08-17 13:31:37
+2026-08-17 13:31:37,110 - INFO - Mode: LIVE
+2026-08-17 13:31:37,110 - INFO - ============================================================
+2026-08-17 13:31:37,812 - INFO - US Market Open on 2026-08-17
+2026-08-17 13:31:37,831 - INFO - Order Calculation - Holdings: 20, Funds: $17792.93
+2026-08-17 13:31:37,832 - INFO - Submitting LOC buy: 20 @ $144.95
+2026-08-17 13:31:37,972 - INFO - Order placed successfully: LOC_BUY 20 SOXL
+2026-08-17 13:31:37,973 - INFO - Submitting LOC sell: 20 @ $145.67
+2026-08-17 13:31:38,079 - INFO - Order placed successfully: LOC_SELL 20 SOXL
+2026-08-17 13:31:38,080 - INFO - Order Results: 2/2 successful
