@@ -1,0 +1,11 @@
+2026-10-31 04:30:28,901 - INFO - Access token issued successfully (expires: 2026-11-01 03:30:28.901795)
+2026-10-31 04:30:28,903 - INFO - Token saved to file
+2026-10-31 04:30:28,903 - INFO - ============================================================
+2026-10-31 04:30:28,903 - INFO - EVENING TASK START
+2026-10-31 04:30:28,903 - INFO - 실행시간 Time: 2026-10-31 04:30:28
+2026-10-31 04:30:28,903 - INFO - ============================================================
+2026-10-31 04:30:29,631 - INFO - Target date for price update: 2026-10-30
+2026-10-31 04:30:29,632 - INFO - Updating price for 2026-10-30
+2026-10-31 04:30:29,669 - ERROR - Failed to get price data: {"rt_cd":"1","msg_cd":"EGW00316","msg1":"조회 처리 중 오류 발생하였습니다. 재 조회 수행 부탁드립니다."}
+2026-10-31 04:30:29,670 - INFO - Loaded 0 days of price data for SOXL
+2026-10-31 04:30:29,670 - WARNING - No price data for 2026-10-30
