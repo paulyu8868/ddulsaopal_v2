@@ -36,6 +36,26 @@ def get_latest_db_date(symbol):
     return datetime.strptime(latest, '%Y-%m-%d')
 
 
+def resolve_chart_start(config, symbol):
+    """차트 시작일 결정 (표시 전용 - 실거래 trading.start_date와 무관).
+
+    chart.start_date가 'ytd'면 DB 최신 종가가 속한 해의 첫 거래일을 쓴다.
+    해가 바뀌어도 새해 첫 종가가 DB에 들어오기 전까지는 전년도 결산이 유지되고,
+    들어오는 날 자동으로 새해 1월 첫 거래일로 리셋된다.
+    """
+    chart_start = (config.get('chart') or {}).get('start_date')
+    if chart_start == 'ytd':
+        latest = get_latest_db_date(symbol)
+        conn = sqlite3.connect('data/trading.db')
+        first = conn.execute(
+            "SELECT MIN(date) FROM prices WHERE symbol = ? AND date >= ?",
+            (symbol, f'{latest.year}-01-01'),
+        ).fetchone()[0]
+        conn.close()
+        return first
+    return chart_start or config['trading']['start_date']
+
+
 def run_campaign_simulation(symbol, start_date, end_date, initial_funds, buy_portion, fee, welfare):
     start_date_dt = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date_dt > end_date:
@@ -106,7 +126,7 @@ def build_chart(symbol, start_date, df_year, df_res, return_rate, mdd, df_trades
     ax2.tick_params(axis='y', labelcolor=color_ret)
 
     ax1.axvline(pd.to_datetime(start_date), color='white', linestyle=':', linewidth=1, alpha=0.5)
-    ax1.text(pd.to_datetime(start_date), ax1.get_ylim()[1] * 0.98, ' 캠페인 시작',
+    ax1.text(pd.to_datetime(start_date), ax1.get_ylim()[1] * 0.98, ' 시작',
               color='white', fontsize=9, alpha=0.7, va='top')
 
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d'))
@@ -147,8 +167,8 @@ def main():
     fee = config['trading']['fee_rate']
     welfare = config['trading'].get('welfare', True)
 
-    # 차트 표시용 시작일 - chart.start_date가 있으면 그걸 쓰고, 없으면 실거래 start_date를 따라감
-    chart_start_date = (config.get('chart') or {}).get('start_date') or config['trading']['start_date']
+    # 차트 표시용 시작일 ('ytd'면 올해 첫 거래일, 지정값이면 그 날짜, 없으면 실거래 start_date)
+    chart_start_date = resolve_chart_start(config, symbol)
 
     end_date = get_latest_db_date(symbol)
     year_start = f'{end_date.year}-01-01'
